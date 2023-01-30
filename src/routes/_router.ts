@@ -11,6 +11,7 @@ const router = express.Router()
  */
 router.get('/', index)
 
+router.get('/products', index)
 /**
  * GET /resource/:resourceId
  */

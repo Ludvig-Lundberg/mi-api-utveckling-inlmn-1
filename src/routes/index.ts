@@ -1,4 +1,5 @@
 import express from "express"
+import prisma from "../prisma"
 import resource from './_router'
 
 // instantiate a new router
@@ -13,6 +14,7 @@ router.get('/', (req, res) => {
 	})
 })
 
+//router.use("/products", )
 /**
  * [EXAMPLE] /resource
  */
