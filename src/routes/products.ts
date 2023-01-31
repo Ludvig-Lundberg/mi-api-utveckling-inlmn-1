@@ -3,7 +3,6 @@ import { body } from "express-validator";
 //import router from ".";
 import { index, show, store } from '../controllers/product_controller'
 
-//const { body, validationResult } = require('express-validator');
 const router = express.Router()
 
 // alla produkter
