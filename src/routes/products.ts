@@ -1,12 +1,19 @@
 import express from "express";
-import router from ".";
+import { body } from "express-validator";
+//import router from ".";
 import { index, show, store } from '../controllers/product_controller'
 
+//const { body, validationResult } = require('express-validator');
+const router = express.Router()
+
 // alla produkter
-router.get("/", index)
+router.get('/', index)
 // specifik produkt
-router.get(":/productID", show)
+router.get("/:productId", show)
 // post produkt
-router.post('/', store)
+router.post('/', [
+    body("name").isString().withMessage("must be string").bail().isLength({ min: 3 }),
+], store)
+//router.post('/products', store)
 
 export default router

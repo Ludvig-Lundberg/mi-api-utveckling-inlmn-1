@@ -1,8 +1,9 @@
 
 
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import Debug from "debug";
 import prisma from "../prisma";
+import { validationResult } from "express-validator";
 
 const debug = Debug("bortakvall-products:product_controller");
 
@@ -35,10 +36,16 @@ export const show = async (req: Request, res: Response) => {
 
 
 export const store = async (req: Request, res: Response) => {
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+        return res.status(400).send({
+            status: "fail",
+            data: validationErrors.array(),
+        })
+    }
     try {
         const produkt = await prisma.product.create({
             data: {
-                id: req.body.id,
                 name: req.body.name,
                 description: req.body.description,
                 price: req.body.price,
@@ -47,7 +54,6 @@ export const store = async (req: Request, res: Response) => {
                 stock_quantity: req.body.stock_quantity
             }
         })
-
         res.send({
             status: "success",
             data: produkt,
@@ -60,4 +66,15 @@ export const store = async (req: Request, res: Response) => {
             message: "Something's wrong!"
         })
     }
+}
+/**
+ * Update a produkt
+ */
+export const update = async (req: Request, res: Response) => {
+}
+
+/**
+ * Delete a produkt
+ */
+export const destroy = async (req: Request, res: Response) => {
 }
