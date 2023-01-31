@@ -28,6 +28,10 @@ export const show = async (req: Request, res: Response) => {
                 id: productId,
             },
         })
+        res.send({
+            status: "success",
+            data: product,
+        })
     } catch (err) {
         debug(`hittar inte produkt med id: ${productId}`, err)
         res.status(500).send({ status: "error", message: "Kunde inte hitta produkten" })
