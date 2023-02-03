@@ -2,6 +2,7 @@ import express from "express"
 import prisma from "../prisma"
 import resource from './_router'
 import products from './products'
+import orders from "./orders"
 import { body } from 'express-validator'
 
 // instantiate a new router
@@ -16,13 +17,8 @@ router.get('/', (req, res) => {
 	})
 })
 
-/* 
- * Produkter
- */
-
 router.use('/products', products)
-
-//router.use("/products", )
+router.use('/orders', orders)
 /**
  * [EXAMPLE] /resource
  */

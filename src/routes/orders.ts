@@ -16,7 +16,7 @@ router.post('/', [
     body("customer_last_name")  .isString().withMessage("must be string").bail()
                                 .isLength({min: 2}).withMessage("2 characters minimum"),
 
-    body("customer_adress")     .isString().withMessage("must be string").bail()
+    body("customer_address")     .isString().withMessage("must be string").bail()
                                 .isLength({min: 2}).withMessage("name must be 2 or more characters"),
 
     body("customer_postcode")   .isString().withMessage("must be string").bail()
@@ -26,7 +26,7 @@ router.post('/', [
                                 .isLength({min: 2}).withMessage("name must be 2 or more characters"),
 
     body("customer_email")      .isEmail().withMessage("must be email"),
-    body("customer_phone")      .optional().isInt(),
+    body("customer_phone")      .optional(),
     body("order_total")         .isInt({min: 1, gt: 1}).withMessage("must be number")
 ], store)
 

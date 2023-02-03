@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Debug from "debug";
 import prisma from "../prisma";
-import { validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 const debug = Debug("bortakvall-orders:order_controller");
 
@@ -32,7 +32,7 @@ export const show = async (req: Request, res: Response) => {
         })
     } catch (err) {
         debug(`hittar inte order med id: ${orderId}`, err)
-        res.status(500).send({ status: "error", message: "Kunde inte hitta produkten" })
+        res.status(500).send({ status: "error", message: "Kunde inte hitta ordren" })
     }
 }
 
@@ -50,12 +50,13 @@ export const store = async (req: Request, res: Response) => {
             data: {
                 customer_first_name: req.body.customer_first_name,
                 customer_last_name: req.body.customer_last_name,
-                customer_adress: req.body.customer_adress,
+                customer_address: req.body.customer_address,
                 customer_postcode: req.body.customer_postcode,
                 customer_city: req.body.customer_city,
                 customer_email: req.body.customer_email,
                 customer_phone: req.body.customer_phone,
-                order_total: req.body.order_total
+                order_total: req.body.order_total,
+                order_items: req.body.order_items,
             }
         })
         res.send({
@@ -67,7 +68,7 @@ export const store = async (req: Request, res: Response) => {
 
         res.status(500).send({
             status: "error",
-            message: "Something's wrong!"
+            message: "Somethings wrong"
         })
     }
 }
