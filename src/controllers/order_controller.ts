@@ -56,9 +56,16 @@ export const store = async (req: Request, res: Response) => {
                 customer_email: req.body.customer_email,
                 customer_phone: req.body.customer_phone,
                 order_total: req.body.order_total,
-                order_items: req.body.order_items,
             }
         })
+        // const orderitems = await prisma.orderitems.create({
+        //     data: {
+        //             product_id: req.body.order_items.product_id,
+        //             qty: req.body.order_items.qty,
+        //             item_price: req.body.order_items.item_price,
+        //             item_total: req.body.order_items.item_total
+        //     }
+        // })
         res.send({
             status: "success",
             data: order,
@@ -71,6 +78,27 @@ export const store = async (req: Request, res: Response) => {
             message: "Somethings wrong"
         })
     }
+//     try {
+//         const orderitems = await prisma.orderitems.create({
+//             data: {
+//                     product_id: req.body.order_items.product_id,
+//                     qty: req.body.order_items.qty,
+//                     item_price: req.body.order_items.item_price,
+//                     item_total: req.body.order_items.item_total
+//             }
+//         })
+//         res.send({
+//             status: "success",
+//             data: orderitems,
+//         })
+//     } catch (err) {
+//         debug("ERROR when creating order", req.body, err)
+
+//         res.status(500).send({
+//             status: "error",
+//             message: "Somethings wrong"
+//         })
+//     }
 }
 /**
  * Update a order

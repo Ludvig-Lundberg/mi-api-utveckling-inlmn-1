@@ -27,7 +27,10 @@ router.post('/', [
 
     body("customer_email")      .isEmail().withMessage("must be email"),
     body("customer_phone")      .optional(),
-    body("order_total")         .isInt({min: 1, gt: 1}).withMessage("must be number")
+    body("order_total")         .isInt({min: 1, gt: 1}).withMessage("must be number"),
+    
+    body("order_items.*.item_name") .optional(),
+    body("order_items.*.stock_qty") .optional()
 ], store)
 
 
