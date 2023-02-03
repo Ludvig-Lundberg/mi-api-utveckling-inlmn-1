@@ -12,7 +12,7 @@ router.get("/:productId", show)
 router.post('/', [
     body("name")            .isString().withMessage("must be string"),
     body("description")     .isString().withMessage("must be string"),
-    body("price")           .isInt()   .withMessage("must be a number"),
+    body("price")           .isInt({min: 1, gt: 1})   .withMessage("must be a number"),
     body("images")          .isObject().withMessage("must be JSON object with images"),
     body("stock_status")    .isString().withMessage("must be string"),
     body("stock_quantity")  .isInt()   .withMessage("must be a number")

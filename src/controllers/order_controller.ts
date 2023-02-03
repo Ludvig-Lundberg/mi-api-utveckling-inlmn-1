@@ -3,27 +3,27 @@ import Debug from "debug";
 import prisma from "../prisma";
 import { validationResult } from "express-validator";
 
-const debug = Debug("bortakvall-products:product_controller");
+const debug = Debug("bortakvall-orders:order_controller");
 
 export const index = async (req: Request, res: Response) => {
     try {
-        const products = await prisma.product.findMany()
+        const orders = await prisma.order.findMany()
 
         res.send({
             status: "success",
-            data: products,
+            data: orders,
         })
     } catch (err) {
-        debug("Kunde inte hitta producter", err)
+        debug("Kunde inte hitta ordrar", err)
         res.status(500).send({ status: "error", message: "Something's wrong" })
     }
 }
 export const show = async (req: Request, res: Response) => {
-    const productId = Number(req.params.productId)
+    const orderId = Number(req.params.orderId)
     try {
-        const product = await prisma.product.findUniqueOrThrow({
+        const product = await prisma.order.findUniqueOrThrow({
             where: {
-                id: productId,
+                id: orderId,
             },
         })
         res.send({
@@ -31,7 +31,7 @@ export const show = async (req: Request, res: Response) => {
             data: product,
         })
     } catch (err) {
-        debug(`hittar inte produkt med id: ${productId}`, err)
+        debug(`hittar inte order med id: ${orderId}`, err)
         res.status(500).send({ status: "error", message: "Kunde inte hitta produkten" })
     }
 }
@@ -46,22 +46,24 @@ export const store = async (req: Request, res: Response) => {
         })
     }
     try {
-        const produkt = await prisma.product.create({
+        const order = await prisma.order.create({
             data: {
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                images: req.body.images,
-                stock_status: req.body.stock_status,
-                stock_quantity: req.body.stock_quantity
+                customer_first_name: req.body.customer_first_name,
+                customer_last_name: req.body.customer_last_name,
+                customer_adress: req.body.customer_adress,
+                customer_postcode: req.body.customer_postcode,
+                customer_city: req.body.customer_city,
+                customer_email: req.body.customer_email,
+                customer_phone: req.body.customer_phone,
+                order_total: req.body.order_total
             }
         })
         res.send({
             status: "success",
-            data: produkt,
+            data: order,
         })
     } catch (err) {
-        debug("ERROR when creating produkt", req.body, err)
+        debug("ERROR when creating order", req.body, err)
 
         res.status(500).send({
             status: "error",
@@ -70,13 +72,13 @@ export const store = async (req: Request, res: Response) => {
     }
 }
 /**
- * Update a produkt
+ * Update a order
  */
 export const update = async (req: Request, res: Response) => {
 }
 
 /**
- * Delete a produkt
+ * Delete a order
  */
 export const destroy = async (req: Request, res: Response) => {
 }
