@@ -1,0 +1,116 @@
+#confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    font-size: 1rem;
+    width: 95%;
+
+    h4 {
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.05rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    h5 {
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        letter-spacing: 0.05rem;
+        line-height: 1.8rem;
+        border-bottom: 1px solid black;
+        width: 95%;
+        text-align: center;
+    }
+
+    p {
+        width: 70%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    ul {
+        width: 94%;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 10px;
+        margin: 0 0 5px 0;
+
+        li {
+            background-color: rgb(194, 192, 192);
+            padding: 0.4rem;
+            margin: 2px 0;
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                display: flex;
+                justify-content: center;
+                width: 25%;
+
+                span {
+                    width: 50%;
+                }
+            }
+
+            &:nth-child(1) {
+                background-color: white;
+                padding: 0.2rem 0.4rem;
+                font-weight: 500;
+                letter-spacing: 0.05rem;
+            }
+        }
+    }
+
+    #close-confirm {
+        background-color: black;
+        display: flex;
+        margin-left: auto;
+        color: ivory;
+        z-index: 1;
+        
+        &:hover {
+            background: red;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #confirmation {
+        ul {
+            font-size: 0.9rem;
+
+            li {
+                span {
+                    width: 30%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    #confirmation {
+        width: 70%;
+    }
+
+}
+
+@media screen and (min-width: 1024px) { 
+    
+    #confirmation {
+        width: 50%;
+
+        p {
+            width: 90%;
+        }
+    }
+
+}

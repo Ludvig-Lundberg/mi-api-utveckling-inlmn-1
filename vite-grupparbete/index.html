@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="src/style.css" />
+	<title>Bortakväll</title>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="src/favicon_io/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="src/favicon_io/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="src/favicon_io/favicon-16x16.png">
+	<link rel="manifest" href="src/favicon_io/site.webmanifest">
+
+	<!-- GOOGLE FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@100;200;300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+
+	<!-- BOOSTRAP CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/cbb176c578.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<header>
+		<div id="intro" class="introDiv">
+			<span id="intro1" class="introSpan">Välkommen till</span><br>
+			<span id="intro2" class="introSpan">Bortakväll!</span>
+		</div>
+	</header>
+	<nav class="navbar position-sticky" id="navbar">
+		<h1><a id="home-link" href="#"><i class="fa-solid fa-house"></i>Bortakväll</a></h1>
+		<button id="cart">
+			<i class="fa-solid fa-cart-shopping"><span id="cartNumber" class="d-none"></span></i>
+		</button>
+		<div id="activeCart" class="d-none">
+			<div>
+				<span id="listSpan">Dina varor</span>
+				<div id="checkout-btns">
+					<button id="empty-cart" class="btn d-none">Töm korgen <i class="fa-solid fa-trash-can"></i></button>
+					<button id="cartPay" class="btn d-none">
+						Betala <i class="fa-solid fa-money-check-dollar"></i>
+					</button>
+				</div>
+			</div>
+			<ul id="cartList">
+			</ul>
+		</div>
+	</nav>
+	<main class="container" id="main">
+		<section class="product-section">
+			<div id="product-header">
+				<h2>Våra Produkter</h2>
+				<span id="productAmount1" class="amountOfProduct"></span>
+			</div>
+			<div class="row d-flex justify-content-center">
+				<div id="grid" class="row d-flex justify-content-center">
+				</div>
+				<div id="showMoreDiv">
+					<span id="productAmount2" class="amountOfProduct"></span>
+					<br>
+					<button id="showMoreButton">Visa mer</button>
+				</div>
+			</div>
+			<div class="d-none" id="fade-background">
+			</div>
+		</section>
+		<section class="checkout-section d-none">
+			<button id="continueShopping" class="d-none"><i class="fa-solid fa-arrow-left"></i> Handla vidare</button>
+			<div id="checkout-container">
+				<div class="d-none" id="checkout-cart">
+					<h4>Dina varor</h4>
+					<ul id="checkout-cart-list">
+					</ul>
+					<span id="total-cost"></span>
+					<p>Fyll i dina kontaktuppgifter för att gå vidare med köpet.</p>
+				</div>
+				<form id="form" class="col-12 flex d-none">
+					<span id="formTitle" class="text-center">Dina kontaktuppgifter</span>
+
+					<div id="adjustbox" class="col-12 d-flex row text-center">
+						<div class="form-group col-6">
+							<label for="firstName">Förnamn:</label>
+							<input name="firstname" type="text" class="form-control" id="firstName" placeholder="Anna"
+								required>
+						</div>
+						<div class="form-group col-6">
+							<label for="lastName">Efternamn:</label>
+							<input name="lastname" type="text" class="form-control" id="lastName" placeholder="Svensson"
+								required>
+						</div>
+						<div class="form-group col-6">
+							<label for="c-Email">Email:</label>
+							<input name="email" type="email" class="form-control" id="c-Email"
+								placeholder="dinepost@epost.se" required>
+						</div>
+						<div class="form-group col-6">
+							<label for="c-Phone">Mobilnummer:</label>
+							<input name="phone-number" type="text" class="form-control" id="c-Phone"
+								placeholder="07X-XXXXXXX">
+						</div>
+						<div class="form-group col-4">
+							<label for="c-Adress">Adress:</label>
+							<input name="adress" type="text" class="form-control" id="c-Adress"
+								placeholder="Exempelgatan 12" required>
+						</div>
+						<div class="form-group col-4">
+							<label for="c-Postcode">Postnummer:</label>
+							<input name="postcode" type="text" class="form-control" id="c-Postcode" placeholder="111 22"
+								required>
+						</div>
+						<div class="form-group col-4">
+							<label for="c-City">Ort:</label>
+							<input name="city" type="text" class="form-control" id="c-City" placeholder="Stad" required>
+						</div>
+						<button id="btn" type="submit" class="btn col-3">Skicka in</button>
+					</div>
+				</form>
+			</div>
+			<div id="confirmation" class="confirmation d-none">
+
+			</div>
+		</section>
+	</main>
+    <footer>
+
+        <span>©&nbsp; <a href="https://github.com/arden-rh">Arden Haldorson</a>&nbsp; |&nbsp; <a
+            href="https://github.com/Ludvig-Lundberg">Ludvig Lundberg</a>&nbsp; |&nbsp; <a
+            href="https://github.com/Patr1khe">Patrik He</a></span>
+
+            <span>Image by <a href="https://www.freepik.com/free-photo/delicious-candy-concept-with-copy-space_10289575.htm#query=candy&position=12&from_view=search&track=sph">Freepik</a></span>
+
+    </footer>
+
+	<!-- SCRIPT -->
+	<script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
