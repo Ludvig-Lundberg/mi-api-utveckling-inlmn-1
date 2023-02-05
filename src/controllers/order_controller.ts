@@ -61,38 +61,18 @@ export const store = async (req: Request, res: Response) => {
         })
 
         const reqData: any = req.body.order_items;
-        let newData = [];
+        let order_items = [];
         for (let i = 0; i < reqData.length; i++) {
-            newData.push({
+            order_items.push({
                 product_id: reqData[i].product_id,
                 qty: reqData[i].qty,
                 item_price: reqData[i].item_price,
                 item_total: reqData[i].item_total
               })
         }
-        console.log(newData)
-        console.log(JSON.stringify(newData))
-        const order_items = await prisma.orderitems.createMany({
-            data: [
-            {
-                "product_id": 3,
-                "qty": 1,
-                "item_price": 200,
-                "item_total": 200
-            },
-            {
-                "product_id": 2,
-                "qty": 5,
-                "item_price": 200,
-                "item_total": 1000
-            },
-            {
-                "product_id": 1,
-                "qty": 1,
-                "item_price": 200,
-                "item_total": 200
-            }
-        ]
+
+        const orderitems = await prisma.orderitems.createMany({
+            data: order_items
         })
         res.send({
             status: "success",
