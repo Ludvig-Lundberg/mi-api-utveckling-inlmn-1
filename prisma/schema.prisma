@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model product {
+  id             Int    @id @default(autoincrement()) @db.UnsignedInt
+  name           String @db.VarChar(255)
+  description    String @db.Text
+  price          Int
+  images         Json   @default("{}")
+  stock_status   String @default("instock") @db.VarChar(10)
+  stock_quantity Int?   @default(10)        @db.UnsignedInt
+  order_items    orderitems[]
+}
+
 model order {
   id                  Int          @id @default(autoincrement()) @db.UnsignedInt
   customer_first_name String       @db.VarChar(255)
@@ -16,7 +27,7 @@ model order {
   customer_city       String       @db.VarChar(255)
   customer_email      String       @db.VarChar(255)
   customer_phone      String?      @db.VarChar(15)
-  order_total         Int
+  order_total         Int          @db.Int
   order_items         orderitems[]
 }
 
@@ -31,13 +42,4 @@ model orderitems {
   order_id   Int      @db.UnsignedInt
 }
 
-model product {
-  id             Int    @id @default(autoincrement()) @db.UnsignedInt
-  name           String @db.VarChar(255)
-  description    String @db.Text
-  price          Int
-  images         Json   @default("{}")
-  stock_status   String @default("instock") @db.VarChar(10)
-  stock_quantity Int    @default(10)        @db.UnsignedInt
-  order_items         orderitems[]
-}
+
