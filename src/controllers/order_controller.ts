@@ -46,6 +46,7 @@ export const store = async (req: Request, res: Response) => {
             data: validationErrors.array(),
         })
     }
+    const {order_items} = req.body.order_items
     try {
          const order = await prisma.order.create({
              data: {
@@ -57,23 +58,26 @@ export const store = async (req: Request, res: Response) => {
                  customer_email:      req.body.customer_email,
                  customer_phone:      req.body.customer_phone,
                  order_total:         req.body.order_total,
+                 order_items: {
+                    create: order_items,
+                 }
              }
         })
 
-        const reqData: any = req.body.order_items;
-        let order_items = [];
-        for (let i = 0; i < reqData.length; i++) {
-            order_items.push({
-                product_id: reqData[i].product_id,
-                qty: reqData[i].qty,
-                item_price: reqData[i].item_price,
-                item_total: reqData[i].item_total
-              })
-        }
+    //     const reqData: any = req.body.order_items;
+    //    // let order_items = [];
+    //     for (let i = 0; i < reqData.length; i++) {
+    //         order_items.push({
+    //             product_id: reqData[i].product_id,
+    //             qty: reqData[i].qty,
+    //             item_price: reqData[i].item_price,
+    //             item_total: reqData[i].item_total
+    //           })
+    //     }
 
-        const orderitems = await prisma.orderitems.createMany({
-            data: order_items
-        })
+    //     const orderitems = await prisma.orderitems.createMany({
+    //         data: order_items
+    //     })
         res.send({
             status: "success",
             data: order, order_items

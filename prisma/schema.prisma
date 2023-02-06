@@ -8,7 +8,7 @@ datasource db {
 }
 
 model order {
-  id                  Int          @id @default(autoincrement())
+  id                  Int          @id @default(autoincrement()) @db.UnsignedInt
   customer_first_name String       @db.VarChar(255)
   customer_last_name  String       @db.VarChar(255)
   customer_address    String       @db.VarChar(255)
@@ -21,23 +21,23 @@ model order {
 }
 
 model orderitems {
-  id         Int      @id @default(autoincrement())
-  product_id Int    
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  product_id Int      @db.UnsignedInt
   qty        Int      @db.UnsignedInt
   item_price Int      @db.UnsignedInt
   item_total Int      @db.UnsignedInt
-  order      order?   @relation(fields: [order_id], references: [id])
-  order_id   Int?
   product    product  @relation(fields: [product_id], references: [id])
+  order      order    @relation(fields: [order_id], references: [id])
+  order_id   Int      @db.UnsignedInt
 }
 
 model product {
-  id             Int    @id @default(autoincrement())
+  id             Int    @id @default(autoincrement()) @db.UnsignedInt
   name           String @db.VarChar(255)
   description    String @db.Text
   price          Int
-  images         Json
-  stock_status   String @db.VarChar(10)
-  stock_quantity Int    @db.UnsignedInt
+  images         Json   @default("{}")
+  stock_status   String @default("instock") @db.VarChar(10)
+  stock_quantity Int    @default(10)        @db.UnsignedInt
   order_items         orderitems[]
 }
