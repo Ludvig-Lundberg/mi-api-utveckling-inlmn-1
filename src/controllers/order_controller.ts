@@ -26,6 +26,9 @@ export const show = async (req: Request, res: Response) => {
             where: {
                 id: orderId,
             },
+            include: {
+                order_items: true
+            }
         })
         res.send({
             status: "success",
@@ -77,11 +80,14 @@ export const store = async (req: Request, res: Response) => {
                     create: newOrderItems
                 }
             },
+            include: {
+                order_items: true
+            }
            
         })
         res.send({
             status: "success",
-            data: order, order_items
+            data: order
         })
     } catch (err) {
         debug("ERROR when creating order", req.body, err)
