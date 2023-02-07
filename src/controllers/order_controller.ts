@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import Debug from "debug";
-import prisma from "../prisma";
 import { body, validationResult } from "express-validator";
 import { create } from "domain";
+import prisma from "../prisma";
 
 const debug = Debug("bortakvall-orders:order_controller");
 
@@ -46,38 +46,38 @@ export const store = async (req: Request, res: Response) => {
             data: validationErrors.array(),
         })
     }
-    const {customer_first_name, customer_last_name, customer_address, customer_postcode, customer_city, customer_phone, order_total, order_items} = req.body
+    const {customer_first_name, customer_last_name, customer_address, customer_postcode, customer_city, customer_email, customer_phone, order_total, order_items} = req.body
+
+    const newOrderItems: { product_id: number; qty: number; item_price: number; item_total: number; }[] = [];
+    const orderItemsFunc = () => {
+        order_items.map((item: { product_id: number; qty: number; item_price: number; item_total: number; }) => {
+            newOrderItems.push({
+                product_id: item.product_id,
+                qty: item.qty,
+                item_price: item.item_price,
+                item_total: item.item_total
+            })
+        });
+    } 
+    orderItemsFunc()
     try {
-         const order = await prisma.order.create({
-             data: {
-                 customer_first_name: req.body.customer_first_name,
-                 customer_last_name:  req.body.customer_last_name,
-                 customer_address:    req.body.customer_address,
-                 customer_postcode:   req.body.customer_postcode,
-                 customer_city:       req.body.customer_city,
-                 customer_email:      req.body.customer_email,
-                 customer_phone:      req.body.customer_phone,
-                 order_total:         req.body.order_total,
-                 order_items: {
-                    create: req.body.order_items,
-                 }
-             }
+        console.log(order_items)
+        const order = await prisma.order.create({
+            data: {
+                customer_first_name,
+                customer_last_name,
+                customer_address,
+                customer_postcode,
+                customer_city,
+                customer_email,
+                customer_phone,
+                order_total,
+                order_items: {
+                    create: newOrderItems
+                }
+            },
+           
         })
-
-    //     const reqData: any = req.body.order_items;
-    //    // let order_items = [];
-    //     for (let i = 0; i < reqData.length; i++) {
-    //         order_items.push({
-    //             product_id: reqData[i].product_id,
-    //             qty: reqData[i].qty,
-    //             item_price: reqData[i].item_price,
-    //             item_total: reqData[i].item_total
-    //           })
-    //     }
-
-    //     const orderitems = await prisma.orderitems.createMany({
-    //         data: order_items
-    //     })
         res.send({
             status: "success",
             data: order
@@ -87,18 +87,7 @@ export const store = async (req: Request, res: Response) => {
         
         res.status(500).send({
             status: "error",
-            message: "Somethings wrong"
+            message: "DATABAS error"
         })
     }
-}
-/**
-* Update a order
-*/
-export const update = async (req: Request, res: Response) => {
-}
-
-/**
-* Delete a order
-*/
-export const destroy = async (req: Request, res: Response) => {
 }
