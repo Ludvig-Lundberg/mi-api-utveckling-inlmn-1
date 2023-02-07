@@ -48,6 +48,7 @@ export const store = async (req: Request, res: Response) => {
     }
     const {customer_first_name, customer_last_name, customer_address, customer_postcode, customer_city, customer_email, customer_phone, order_total, order_items} = req.body
 
+    // hämtar ut rätt info från "order_items" till en ny array och sedan POST:ar upp den
     const newOrderItems: { product_id: number; qty: number; item_price: number; item_total: number; }[] = [];
     const orderItemsFunc = () => {
         order_items.map((item: { product_id: number; qty: number; item_price: number; item_total: number; }) => {
@@ -80,7 +81,7 @@ export const store = async (req: Request, res: Response) => {
         })
         res.send({
             status: "success",
-            data: order
+            data: order, order_items
         })
     } catch (err) {
         debug("ERROR when creating order", req.body, err)
