@@ -10,6 +10,8 @@ router.get('/', index)
 router.get("/:orderId", show)
 // post:a order
 router.post('/', [
+    // valideringsregler
+    // order
     body("customer_first_name") .isString().withMessage("must be string").bail()
                                 .isLength({min: 2}).withMessage("2 characters minimum"),
 
@@ -27,10 +29,14 @@ router.post('/', [
 
     body("customer_email")      .isEmail().withMessage("must be email"),
     body("customer_phone")      .optional(),
-    body("order_total")         .isInt({min: 1, gt: 1}).withMessage("must be number"),
+    body("order_total")         .isInt({min: 1}).withMessage("must be number"),
     
-    body("order_items.*.item_name") .optional(),
-    body("order_items.*.stock_qty") .optional()
+
+    // order_items
+    body("order_items.*.product_id").isInt({min:1}).withMessage("must be number"),
+    body("order_items.*.qty")       .isInt({min:1}).withMessage("must be number"),
+    body("order_items.*.item_price").isInt({min:1}).withMessage("must be number"),
+    body("order_items.*.item_total").isInt({min:1}).withMessage("must be number"),
 ], store)
 
 
