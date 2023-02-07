@@ -69,14 +69,3 @@ export const store = async (req: Request, res: Response) => {
         })
     }
 }
-/**
- * Update a produkt
- */
-export const update = async (req: Request, res: Response) => {
-}
-
-/**
- * Delete a produkt
- */
-export const destroy = async (req: Request, res: Response) => {
-}
