@@ -8,9 +8,6 @@ import { body } from 'express-validator'
 // instantiate a new router
 export const router = express.Router()
 
-/**
- * GET /
- */
 router.get('/', (req, res) => {
 	res.send({
 		message: "Välkommen till Bortakväll! | /products för produkter | /orders för orders |",
@@ -19,9 +16,5 @@ router.get('/', (req, res) => {
 
 router.use('/products', products)
 router.use('/orders', orders)
-/**
- * [EXAMPLE] /resource
- */
-// router.use('/resource', resource)
 
 export default router
