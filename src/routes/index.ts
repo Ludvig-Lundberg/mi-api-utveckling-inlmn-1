@@ -13,7 +13,7 @@ export const router = express.Router()
  */
 router.get('/', (req, res) => {
 	res.send({
-		message: "I AM API, BEEP BOOP",
+		message: "Välkommen till Bortakväll! | /products för produkter | /orders för orders |",
 	})
 })
 
