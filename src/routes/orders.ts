@@ -33,6 +33,7 @@ router.post('/', [
     
 
     // order_items
+    body("order_items").isArray().bail().withMessage("order_items must be an array").isLength({min:1}).withMessage("must include at least 1 item"),
     body("order_items.*.product_id").isInt({min:1}).withMessage("must be number"),
     body("order_items.*.qty")       .isInt({min:1}).withMessage("must be number"),
     body("order_items.*.item_price").isInt({min:1}).withMessage("must be number"),

@@ -14,6 +14,12 @@ export const index = async (req: Request, res: Response) => {
             status: "success",
             data: orders,
         })
+        if (!orders) {
+            return res.send({
+                status: "error",
+                message: "Couldn't find orders"
+            })
+        }
     } catch (err) {
         debug("Kunde inte hitta ordrar", err)
         res.status(500).send({ status: "error", message: "Something's wrong" })
@@ -22,7 +28,7 @@ export const index = async (req: Request, res: Response) => {
 export const show = async (req: Request, res: Response) => {
     const orderId = Number(req.params.orderId)
     try {
-        const product = await prisma.order.findUniqueOrThrow({
+        const order = await prisma.order.findUniqueOrThrow({
             where: {
                 id: orderId,
             },
@@ -32,8 +38,14 @@ export const show = async (req: Request, res: Response) => {
         })
         res.send({
             status: "success",
-            data: product,
+            data: order,
         })
+        if (!order) {
+            return res.send({
+                status: "error",
+                message: "Couldn't find order"
+            })
+        }
     } catch (err) {
         debug(`hittar inte order med id: ${orderId}`, err)
         res.status(500).send({ status: "error", message: "Kunde inte hitta ordren" })
